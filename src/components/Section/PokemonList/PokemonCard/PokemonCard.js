@@ -8,11 +8,10 @@ const PokemonCard = (props) => {
         fetch(`${props.pokeUrl}`)
         .then(response => response.json())
         .then(pokemon => setPokemon(pokemon))
-      }
+    }
 
     useEffect(() => {
         fetchPokemon()
-        console.log("test")
     }, [props])
 
     const handleClickPokemon = () => {
