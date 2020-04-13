@@ -1,33 +1,40 @@
 import React, {useState, useEffect} from 'react'
 import PokemonCard from './PokemonCard/PokemonCard'
 
-let offset = 0;
+let limit = 16;
+const apiUrl = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=`
 
 const PokemonList = (props) => {
 
-    const [limit, setLimit] = useState(16)
-    const [apiUrl, setApiUrl] = useState(`https://pokeapi.co/api/v2/pokemon?limit=16&offset=0`)
+    const [currentPage, setCurrentPage] = useState(0);
+    const [count, setCount] = useState(0)
     const [allPokemon, setAllPokemon] = useState(null)
     
-    const previous = () => {
-        offset-=16
-        setApiUrl(`https://pokeapi.co/api/v2/pokemon?limit=16&offset=${offset}`)
-    }
-    const next = () => {
-        offset+=16
-        setApiUrl(`https://pokeapi.co/api/v2/pokemon?limit=16&offset=${offset}`)
-        console.log(offset)
+    const setPage = (e) => {
+        setCurrentPage(e.target.name)
     }
 
     function fetchPokemon(){
-        fetch(apiUrl)
+        fetch(apiUrl + (currentPage * limit))
         .then(response => response.json())
-        .then(pokeList => setAllPokemon(pokeList.results))
+        .then(pokeList => {
+            setCount(pokeList.count)
+            setAllPokemon(pokeList.results)
+        })
     }
       
     useEffect(() => {
         fetchPokemon()
-    }, [apiUrl]);
+    }, [currentPage]);
+
+    const getPagination = () => {
+        const countItems = Math.ceil(count / limit);
+        const result = [];
+        for (let i=0; i < countItems; i++) {
+            result.push(<li key={i} className="page-item"><button name={i} onClick={setPage} className="page-link">{i+1}</button></li>)
+        }
+        return result
+     }
 
     return ( <>
         <div className="row">
@@ -37,8 +44,7 @@ const PokemonList = (props) => {
                 <>{allPokemon.map((e, i)=> <PokemonCard clickPokemon={props.clickPokemon} key={i} pokeUrl={e.url} />)}
                     <nav aria-label="Page navigation example" className="mx-auto">
                         <ul className="pagination">
-                        <li className="page-item"><button onClick={previous} className="page-link">Previous</button></li>
-                        <li className="page-item"><button onClick={next} className="page-link">Next</button></li>
+                            {getPagination()}
                         </ul>
                     </nav>
                 </>
