@@ -13,14 +13,13 @@ const Section = () => {
     }
 
     return (
-        <div>
+        
             <>{pokemonSection ? (
             <Pokemon pokeObject={actualPokemon}/>
             ) : (
             <PokemonList clickPokemon={clickPokemon}/>
             )}
             </>
-        </div>
     )
 }
 

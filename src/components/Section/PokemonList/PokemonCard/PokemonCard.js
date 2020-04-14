@@ -19,17 +19,20 @@ const PokemonCard = (props) => {
     }
 
     return (
-        <div className="col-sm-6 col-md-3 my-3" onClick={handleClickPokemon}>
+        <div className="col-sm-6 col-md-4 col-lg-3 my-3" onClick={handleClickPokemon}>
             <div className="card">
-                <div className="card-header">
+               
                     {pokemon === null ? (
                         <h5>Trwa ładowanie pokemona</h5>
-                    ) : ( <>
-                        <h5>{pokemon.name}</h5>
-                        <img src={pokemon.sprites.front_default} />
+                    ) : (<>
+                            <div className="card-header">
+                                <h5>{pokemon.name}</h5>
+                            </div>
+                            <div className="card-body">
+                                <img src={pokemon.sprites.front_default} />
+                            </div>
                         </>
                     )}
-                </div>
             </div>
         </div>
     )
