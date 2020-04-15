@@ -11,15 +11,20 @@ const Section = () => {
         setActualPokemon(pokemon)
         setPokemonSection(true)
     }
+    const handleClickBack = () => {
+        setPokemonSection(false)
+    }
 
     return (
-        
-            <>{pokemonSection ? (
-            <Pokemon pokeObject={actualPokemon}/>
+        <>{pokemonSection ? ( 
+            <>
+                <Pokemon pokeObject={actualPokemon} clickBack={handleClickBack}/>
+                <button className="btn btn-primary" onClick={handleClickBack}>Go Back to Pokemon List</button>
+            </>
             ) : (
             <PokemonList clickPokemon={clickPokemon}/>
             )}
-            </>
+        </>
     )
 }
 

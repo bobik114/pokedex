@@ -1,7 +1,14 @@
 @import './reset.scss';
-@import "~bootstrap/scss/bootstrap";
 @import url("https://fonts.googleapis.com/css?family=Press+Start+2P");
 
+$primary: red;
+
+@import "~bootstrap/scss/bootstrap";
 img {
     width: 100%;
+}
+
+.navbar {
+    background-color: red;
+    font-family: "Press start 2P";
 }

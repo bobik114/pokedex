@@ -3,18 +3,20 @@ import './Pokemon.scss'
 
 const Pokemon = (props) => {
 
-    console.log(props.pokeObject)
+    const capitalizeFirstLetter = (str) => {
+        return str.length ? str.charAt(0).toUpperCase() + str.slice(1) : str
+    }
 
     return <>
         <div className="row">
             <div className="col-12 col-md-10 my-5 mx-auto">
                 <div className="card">
                     <div className="card-header justify-content-center">
-                        <h1>{props.pokeObject.name}</h1>
+                        <h1>{capitalizeFirstLetter(props.pokeObject.name)}</h1>
                     </div>
                     <div className="row">
                         <div className="col-12 col-md-6 mx-auto">
-                            <img src={props.pokeObject.sprites.front_default} />
+                            <img alt="#" src={props.pokeObject.sprites.front_default} />
                         </div>
                         <div className="col-12 col-md-6 mx-auto">
                             <div className="row mx-5 my-2 justify-content-center">
