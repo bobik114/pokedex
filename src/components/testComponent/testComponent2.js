@@ -55,7 +55,7 @@ const TestComponent2 = () => {
     const apiType = `https://pokeapi.co/api/v2/type/${getType(selectedType)}`
     
 
-    function fetchAllPokemon(api){
+    function fetchPokeType(api){
         fetch(api)           
         .then(response => response.json())
         .then(pokemonType => {
@@ -72,13 +72,14 @@ const TestComponent2 = () => {
     }, [pokemonsToConvert])
 
     useEffect(() => {
-        fetchAllPokemon(apiType)
+        fetchPokeType(apiType)
+        console.log(selectedType)
     }, [selectedType])
 
 
     const handleChange = (event) => {
         setSelectedType(event.target.value)
-        console.log(pokemonsConverted)
+        
 
     }
 
