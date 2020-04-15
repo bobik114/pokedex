@@ -10,6 +10,7 @@ function App() {
   return ( <>
       <NavBar />
       <div className="container">
+      <TestComponent2 />
         <Section />
         
       </div>
