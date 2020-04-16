@@ -11,7 +11,6 @@ function App() {
       <NavBar />
       <div className="container">
         <Section />
-        <TestComponent2 />
       </div>
     </>
   )

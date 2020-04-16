@@ -66,6 +66,7 @@ const PokemonList = (props) => {
         .then(response => response.json())
         .then(pokemonType => {
             setPokemonsToConvert(pokemonType.pokemon)
+            console.log(pokemonType.pokemon)
         })
     }
 
@@ -78,16 +79,21 @@ const PokemonList = (props) => {
     }, [pokemonsToConvert])
 
     useEffect(() => {
-        fetchPokeType(apiType)
+        if(selectedType) {
+            fetchPokeType(apiType)
+            console.log("tesst fetch pokemons")
+        }
+        
     }, [selectedType])
 
     useEffect(() => {
         setPokemons(pokemonsConverted)
+        console.log("test set pokemons")
     }, [pokemonsToConvert])
 
     const handleChange = (event) => {
         setSelectedType(event.target.value)
-        
+        console.log("co jest")
 
     }
 
@@ -154,9 +160,9 @@ const PokemonList = (props) => {
                 <input type="text" className="form-control" ref={input} />
                 <input type="submit" className="btn btn-secondary" value="Search" />
             </form>
-            <form>
-            <label htmlFor="types">Choose a type:</label>
-            <select onChange={handleChange} id="types" name="types" form="types">
+            <form className="form-inline col-md-4">
+            <label htmlFor="types">Type:</label>
+            <select onChange={handleChange} id="types" className="form-control" form="types">
                 {types.map((el, i) => <option key={i} value={el}>{el}</option>)}
             </select>
         </form>
