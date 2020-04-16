@@ -1,8 +1,7 @@
 # POKEDEX 
 
-
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app)
-thanks to PokeApi.
+Pokemon list comes from PokeApi
 
 ## Available Scripts
 
