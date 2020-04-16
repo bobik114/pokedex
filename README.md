@@ -69,3 +69,7 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+## Copyrights
+
+Pokemon is owned by Gamefreak & Nintendo and licensed by Nintendo All rights for the name and any reference to Pokemon is owned by them.
