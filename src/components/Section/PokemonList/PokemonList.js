@@ -19,7 +19,7 @@ const PokemonList = (props) => {
     const [pageCount, setPageCount] = useState(0)
     const [pagiOff, setPagiOff] = useState(false)
 
-    const apiUrl = `https://pokeapi.co/api/v2/pokemon?limit=1000`
+    const apiUrl = `https://pokeapi.co/api/v2/pokemon?limit=807`
     const apiUrlLimit = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=`
     const apiType = `https://pokeapi.co/api/v2/type/${getType(selectedType)}`
 
@@ -28,7 +28,7 @@ const PokemonList = (props) => {
         .then(response => response.json())
         .then(pokeList => {
             setPokemons(pokeList.results)           
-            setPageCount(Math.ceil(pokeList.count/limit))
+            setPageCount(Math.ceil(807/limit))
         })
     }
     
@@ -37,7 +37,7 @@ const PokemonList = (props) => {
         .then(response => response.json())
         .then(pokeList => {
             setAllPokemons(pokeList.results)
-            setPageCount(Math.ceil(pokeList.results.length / limit))         
+            setPageCount(Math.ceil(807 / limit))         
         })
     }
 
@@ -107,21 +107,21 @@ const PokemonList = (props) => {
     }
 
     return ( <>
-        <div className="row  my-2">
-            <form onSubmit={handleSubmit} className="form-inline  col-xl-4 input-group my-1">
-                <input onChange={handleType} type="text" className="form-control" value={typedSearch} />
-                <input type="submit" className="btn btn-primary " value="Search" />
+        <div className="row  my-4">
+            <form onSubmit={handleSubmit} className="form-inline col-xl-4 input-group my-1">
+                <input onChange={handleType} placeholder="Pokemon name" type="text" className="form-control" value={typedSearch} />
+                <input type="submit" className="btn btn-primary submit-btn" value="Search" />
             </form>
             
             <form className="form-inline col-md-3 my-1">
-                <label htmlFor="types" className="type-label">Type:</label>
+                <label htmlFor="types" className="type-label mr-2">Type:</label>
                 <select onChange={handleChangeType} id="types" className="form-control pointer">
                     {types.map((el, i) => <option key={i} value={el}>{el}</option>)}
                 </select>
             </form>
             {pagiOff ? (null):(
                 <form className="form-inline col-md-5 my-1">
-                    <label htmlFor="pokemons-per-page" className="per-page-label">Pokemons per page:</label>
+                    <label htmlFor="pokemons-per-page" className="per-page-label mr-2">Pokemons per page:</label>
                     <select onChange={handleChangeNumber} id="pokemons-per-page" className="form-control pointer">
                         <option value={8}>8</option>
                         <option value={16}>16</option>
@@ -139,7 +139,7 @@ const PokemonList = (props) => {
                 <>{pokemons.map((e, i)=> <PokemonCard clickPokemon={props.clickPokemon} key={i} pokeUrl={e.url} />)}</>
             )}
         </div>
-        <div className="row">
+        <div className="row my-4">
             <nav aria-label="Page navigation example" className="mx-auto pointer">
                 {pagiOff ? (null):(
                     <ReactPaginate
