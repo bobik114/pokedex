@@ -1,4 +1,84 @@
 .card-header {
-    background-color: #fee;
+    background-color: rgb(253, 221, 146);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #111;
+    text-shadow: -1px -1px 1px rgba(255, 255, 255, 0.445), 1px 1px 1px rgba(0,0,0,.5);
+}
+
+.container-type-box {
+    display: flex;
+
+    .normal {
+        background-color: lightgray;
+    }
+    .fighting {
+        background-color: gray;
+    }
+    .flying {
+        background-color: lightblue;
+    }
+    .poison {
+        background-color: #c0f;
+    }
+    .ground {
+        background-color: #A56355;
+    }
+    .rock {
+        background-color: #957E79;
+    }
+    .bug {
+        background-color: #784F7B;
+    }
+    .ghost {
+        background-color: #c0f;
+    }
+    .steel {
+        background-color: #6F6567;
+    }
+    .fire {
+        background-color: #F05426;
+    }
+    .water {
+        background-color: #269AF0;
+    }
+    .grass {
+        background-color: #77DC28;
+    }
+    .electric {
+        background-color: #DCD128;
+    }
+    .psychic {
+        background-color: #BB28DC;
+    }
+    .ice {
+        background-color: #4FC7EE;
+    }
+    .dragon {
+        background-color: #9C8328;
+    }
+    .dark {
+        background-color: #555;
+    }
+    .fairy {
+        background-color: pink;
+    }
+}
+// "normal", "fighting", "flying", "poison", "ground", "rock", "bug", "ghost", "steel",
+//  "fire", "water", "grass", "electric", "physic", "ice", "dragon", "dark", "fairy"]
+
+.type-box {
+    margin: 0 1px;
+    width: 50px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    
+    color: white;
+    font-size: 12px;
+
     
 }
+
+

@@ -1,9 +1,14 @@
 @import './reset.scss';
-@import url("https://fonts.googleapis.com/css?family=Press+Start+2P");
+@import './fonts.scss';
 
 $primary: #f44;
 
 @import "~bootstrap/scss/bootstrap";
+
+body {
+    font-family: "Flexo Medium";
+}
+
 img {
     width: 100%;
 }
@@ -11,4 +16,8 @@ img {
 .navbar {
     background-color: #f44;
     font-family: "Press start 2P";
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
 }

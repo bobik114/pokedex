@@ -6,7 +6,7 @@ import './PokemonList.scss'
 
 const PokemonList = (props) => {
 
-    const types = ["normal", "fighting", "flying", "poison", "ground", "rock", "bug", "ghost", "steel", "fire", "water", "grass", "electric", "physic", "ice", "dragon", "dark", "fairy"]
+    const types = ["normal", "fighting", "flying", "poison", "ground", "rock", "bug", "ghost", "steel", "fire", "water", "grass", "electric", "psychic", "ice", "dragon", "dark", "fairy"]
     let pokemonsConverted = []
 
     const [limit, setLimit] = useState(8)
