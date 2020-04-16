@@ -9,15 +9,15 @@ const PokemonList = (props) => {
     const types = ["normal", "fighting", "flying", "poison", "ground", "rock", "bug", "ghost", "steel", "fire", "water", "grass", "electric", "physic", "ice", "dragon", "dark", "fairy"]
     let pokemonsConverted = []
 
-    const [currentPage, setCurrentPage] = useState(0);
-    const [pageCount, setPageCount] = useState(0)
     const [limit, setLimit] = useState(8)
     const [pokemons, setPokemons] = useState(null)
     const [allPokemons, setAllPokemons] = useState(null)
-    const [pagiOff, setPagiOff] = useState(false)
-    const [pokemonsToConvert, setPokemonsToConvert] = useState(null)
-    const [selectedType, setSelectedType] = useState(null)
     const [typedSearch, setTypedSearch] = useState("")
+    const [selectedType, setSelectedType] = useState(null)
+    const [pokemonsToConvert, setPokemonsToConvert] = useState(null)
+    const [currentPage, setCurrentPage] = useState(0);
+    const [pageCount, setPageCount] = useState(0)
+    const [pagiOff, setPagiOff] = useState(false)
 
     const apiUrl = `https://pokeapi.co/api/v2/pokemon?limit=1000`
     const apiUrlLimit = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=`
@@ -115,14 +115,14 @@ const PokemonList = (props) => {
             
             <form className="form-inline col-md-3 my-1">
                 <label htmlFor="types" className="type-label">Type:</label>
-                <select onChange={handleChangeType} id="types" className="form-control">
+                <select onChange={handleChangeType} id="types" className="form-control pointer">
                     {types.map((el, i) => <option key={i} value={el}>{el}</option>)}
                 </select>
             </form>
             {pagiOff ? (null):(
                 <form className="form-inline col-md-5 my-1">
                     <label htmlFor="pokemons-per-page" className="per-page-label">Pokemons per page:</label>
-                    <select onChange={handleChangeNumber} id="pokemons-per-page" className="form-control">
+                    <select onChange={handleChangeNumber} id="pokemons-per-page" className="form-control pointer">
                         <option value={8}>8</option>
                         <option value={16}>16</option>
                         <option value={24}>24</option>
@@ -140,7 +140,7 @@ const PokemonList = (props) => {
             )}
         </div>
         <div className="row">
-            <nav aria-label="Page navigation example" className="mx-auto">
+            <nav aria-label="Page navigation example" className="mx-auto pointer">
                 {pagiOff ? (null):(
                     <ReactPaginate
                         pageCount={pageCount}

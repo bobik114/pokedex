@@ -32,7 +32,7 @@ const PokemonCard = (props) => {
 
     return (
         <div className="col-sm-6 col-lg-3 my-3" onClick={handleClickPokemon}>
-            <div className="card">
+            <div className="card pointer">
                     {pokemon === null ? (
                         <h5>Trwa ładowanie pokemona</h5>
                     ) : (<>
