@@ -1,10 +1,17 @@
 import React from 'react'
 import './Pokemon.scss'
+import capitalizeFirstLetter from '../../../functions/capitalizeFirstLetter'
+import pokeballImg from '../../../assets/pokeball.png'
 
 const Pokemon = (props) => {
 
-    const capitalizeFirstLetter = (str) => {
-        return str.length ? str.charAt(0).toUpperCase() + str.slice(1) : str
+    function getImg(imgUrl) {
+        if(imgUrl) {
+            return imgUrl
+        }
+        else {
+            return pokeballImg
+        }
     }
 
     return <>
@@ -16,7 +23,7 @@ const Pokemon = (props) => {
                     </div>
                     <div className="row">
                         <div className="col-12 col-md-6 mx-auto">
-                            <img alt="#" src={props.pokeObject.sprites.front_default} />
+                            <img alt="#" src={getImg(props.pokeObject.sprites.front_default)} />
                         </div>
                         <div className="col-12 col-md-6 mx-auto">
                             <div className="row mx-5 my-2 justify-content-center">

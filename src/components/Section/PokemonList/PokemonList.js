@@ -1,115 +1,33 @@
 import React, {useState, useEffect} from 'react'
 import PokemonCard from './PokemonCard/PokemonCard'
 import ReactPaginate from 'react-paginate'
+import getType from '../../../functions/getType'
 import './PokemonList.scss'
-
-let limit = 20;
-const apiUrl = `https://pokeapi.co/api/v2/pokemon?limit=1000`
-const apiUrlLimit = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=`
 
 const PokemonList = (props) => {
 
     const types = ["normal", "fighting", "flying", "poison", "ground", "rock", "bug", "ghost", "steel", "fire", "water", "grass", "electric", "physic", "ice", "dragon", "dark", "fairy"]
-    const getType = (type) => {
-        switch (type) {
-            case "normal":
-                return 1
-            case "fighting":
-                return 2
-            case "flying":
-                return 3
-            case "poison":
-                return 4
-            case "ground":
-                return 5
-            case "rock":
-                return 6
-            case "bug":
-                return 7
-            case "ghost":
-                return 8
-            case "steel":
-                return 9
-            case "fire":
-                return 10
-            case "water":
-                return 11
-            case "grass":
-                return 12
-            case "electric":
-                return 13
-            case "psychic":
-                return 14
-            case "ice":
-                return 15
-            case "dragon":
-                return 16
-            case "dark":
-                return 17
-            case "fairy":
-                return 18
-            default:
-                return 1
-        }
-    }
-    
-
     let pokemonsConverted = []
-    const [pokemonsToConvert, setPokemonsToConvert] = useState(null)
-    const [selectedType, setSelectedType] = useState(null)
-
-    const apiType = `https://pokeapi.co/api/v2/type/${getType(selectedType)}`
-    
-
-    function fetchPokeType(api){
-        fetch(api)           
-        .then(response => response.json())
-        .then(pokemonType => {
-            setPokemonsToConvert(pokemonType.pokemon)
-            console.log(pokemonType.pokemon)
-        })
-    }
-
-    useEffect(() => {
-        if(pokemonsToConvert) {
-            for(const el of pokemonsToConvert) {
-                pokemonsConverted = [...pokemonsConverted, el.pokemon] 
-            }
-        }
-    }, [pokemonsToConvert])
-
-    useEffect(() => {
-        if(selectedType) {
-            fetchPokeType(apiType)
-            console.log("tesst fetch pokemons")
-        }
-        
-    }, [selectedType])
-
-    useEffect(() => {
-        setPokemons(pokemonsConverted)
-        console.log("test set pokemons")
-    }, [pokemonsToConvert])
-
-    const handleChange = (event) => {
-        setSelectedType(event.target.value)
-        console.log("co jest")
-
-    }
 
     const [currentPage, setCurrentPage] = useState(0);
-    const [pageCount, setPageCount] = useState(1)
+    const [pageCount, setPageCount] = useState(0)
+    const [limit, setLimit] = useState(8)
     const [pokemons, setPokemons] = useState(null)
     const [allPokemons, setAllPokemons] = useState(null)
     const [pagiOff, setPagiOff] = useState(false)
+    const [pokemonsToConvert, setPokemonsToConvert] = useState(null)
+    const [selectedType, setSelectedType] = useState(null)
+    const [typedSearch, setTypedSearch] = useState("")
 
-    const input = React.createRef()
+    const apiUrl = `https://pokeapi.co/api/v2/pokemon?limit=1000`
+    const apiUrlLimit = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=`
+    const apiType = `https://pokeapi.co/api/v2/type/${getType(selectedType)}`
 
     function fetchPokemon(){
-        fetch(apiUrlLimit + (currentPage * limit))           //wrzucanie odpowiedniej strony paginacji (ustawianie offsetu)
+        fetch(apiUrlLimit + (currentPage * limit))
         .then(response => response.json())
         .then(pokeList => {
-            setPokemons(pokeList.results)             //ustanawianie zbioru pokemonów (na cele wyrenderowania mapy pokemonow)
+            setPokemons(pokeList.results)           
             setPageCount(Math.ceil(pokeList.count/limit))
         })
     }
@@ -123,28 +41,58 @@ const PokemonList = (props) => {
         })
     }
 
+    function fetchPokeType(){
+        fetch(apiType)           
+        .then(response => response.json())
+        .then(pokemonType => {
+            setPokemonsToConvert(pokemonType.pokemon)
+        })
+    }
+
     useEffect(() => {
         fetchAllPokemon()
-    
     }, []);
       
     useEffect(() => {
         fetchPokemon()
-    }, [currentPage]);
+    }, [currentPage, limit]);
 
-    const setPage = (e) => {
-        setCurrentPage(e.selected)                   //ustanawianie aktualnej strony przy kliknieciu na element paginacji
+    useEffect(() => {
+        if(pokemonsToConvert) {
+            for(const el of pokemonsToConvert) {
+                pokemonsConverted = [...pokemonsConverted, el.pokemon] 
+            }
+            setPokemons(pokemonsConverted)
+        }
+    }, [pokemonsToConvert])
+
+    useEffect(() => {
+        if(selectedType) {
+            fetchPokeType(apiType)
+        }
+    }, [selectedType])
+
+    const handleChangeType = (event) => {
+        setSelectedType(event.target.value)
+        setPagiOff(true)
+    }
+
+    const handleChangeNumber = (event) => {
+        setLimit(event.target.value)
+    }
+
+    const handleType = (event) => {
+        setTypedSearch(event.target.value)
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        if (input.current.value !== "") {
+        if (typedSearch !== "") {
             if (!pokemons) return;
-            const valueReg = new RegExp(`w*${input.current.value}w*`, 'i');
+            const valueReg = new RegExp(`w*${typedSearch}w*`, 'i');
             const pokemonsFiltered = allPokemons.filter(pokemon => {
                 return valueReg.test(pokemon.name)
             })
-            console.log(pokemons)
             setPokemons(pokemonsFiltered)
             setPagiOff(true)
         }
@@ -154,24 +102,41 @@ const PokemonList = (props) => {
         }
     }
 
+    const setPage = (e) => {
+        setCurrentPage(e.selected)                   
+    }
+
     return ( <>
-        <div className="row justify-content-end my-2">
-            <form onSubmit={handleSubmit} className="form-inline">
-                <input type="text" className="form-control" ref={input} />
-                <input type="submit" className="btn btn-secondary" value="Search" />
+        <div className="row  my-2">
+            <form onSubmit={handleSubmit} className="form-inline  col-xl-4 input-group my-1">
+                <input onChange={handleType} type="text" className="form-control" value={typedSearch} />
+                <input type="submit" className="btn btn-primary " value="Search" />
             </form>
-            <form className="form-inline col-md-4">
-            <label htmlFor="types">Type:</label>
-            <select onChange={handleChange} id="types" className="form-control" form="types">
-                {types.map((el, i) => <option key={i} value={el}>{el}</option>)}
-            </select>
-        </form>
+            
+            <form className="form-inline col-md-3 my-1">
+                <label htmlFor="types" className="type-label">Type:</label>
+                <select onChange={handleChangeType} id="types" className="form-control">
+                    {types.map((el, i) => <option key={i} value={el}>{el}</option>)}
+                </select>
+            </form>
+            {pagiOff ? (null):(
+                <form className="form-inline col-md-5 my-1">
+                    <label htmlFor="pokemons-per-page" className="per-page-label">Pokemons per page:</label>
+                    <select onChange={handleChangeNumber} id="pokemons-per-page" className="form-control">
+                        <option value={8}>8</option>
+                        <option value={16}>16</option>
+                        <option value={24}>24</option>
+                        <option value={40}>40</option>
+                        <option value={100}>100</option>
+                    </select>
+                </form>
+            )}
         </div>
         <div className="row">
             {pokemons === null ? (
                 <h1>Trwa ładowanie pokemonów</h1>
             ) : (
-                <>{pokemons.map((e, i)=> <PokemonCard pokemons={pokemons} clickPokemon={props.clickPokemon} key={i} pokeUrl={e.url} />)}</>
+                <>{pokemons.map((e, i)=> <PokemonCard clickPokemon={props.clickPokemon} key={i} pokeUrl={e.url} />)}</>
             )}
         </div>
         <div className="row">

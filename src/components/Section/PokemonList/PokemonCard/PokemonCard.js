@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react'
 import './PokemonCard.scss'
+import capitalizeFirstLetter from '../../../../functions/capitalizeFirstLetter'
+import pokeballImg from '../../../../assets/pokeball.png'
 
 const PokemonCard = (props) => {
-
-    
 
     const [pokemon, setPokemon] = useState(null)
 
@@ -26,16 +26,12 @@ const PokemonCard = (props) => {
             return imgUrl
         }
         else {
-            return "https://pngimg.com/uploads/pokeball/pokeball_PNG8.png"
+            return pokeballImg
         }
     }
 
-    const capitalizeFirstLetter = (str) => {
-        return str.length ? str.charAt(0).toUpperCase() + str.slice(1) : str
-      }
-
     return (
-        <div className="col-sm-6 col-md-3 my-3" onClick={handleClickPokemon}>
+        <div className="col-sm-6 col-lg-3 my-3" onClick={handleClickPokemon}>
             <div className="card">
                     {pokemon === null ? (
                         <h5>Trwa ładowanie pokemona</h5>
